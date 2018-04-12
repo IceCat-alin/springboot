@@ -1,5 +1,7 @@
 package com.alin.springboot.service.impl;
 
+import com.alin.springboot.common.Constant;
+import com.alin.springboot.common.PageList;
 import com.alin.springboot.dao.UserRepository;
 import com.alin.springboot.entity.User;
 import com.alin.springboot.service.UserService;
@@ -19,8 +21,13 @@ public class UserServiceImpl implements UserService{
 
 
     @Override
-    public Page<User> getUserPage(Integer pageNo , Integer pageSize){
-        PageRequest pageable = PageRequest.of(pageNo, pageSize);
-        return userRepository.findAll(pageable);
+    public PageList<User> getUserPage(Integer pageNo , Integer pageSize){
+        int currentPage = pageNo != null && pageNo > 0 ? pageNo - 1 : Constant.DEFAULT_PAGE;
+        int currentSize = pageSize != null && pageSize > 0 ? pageSize : Constant.DEFAULT_SIZE;
+        PageRequest pageable = PageRequest.of(currentPage, currentSize);
+
+        Page<User> page = userRepository.findAll(pageable);
+
+        return new PageList(page.getContent(),page.getTotalElements(),page.getTotalPages());
     }
 }
