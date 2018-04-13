@@ -1,9 +1,7 @@
 package com.alin.springboot.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 public class User {
@@ -20,6 +18,10 @@ public class User {
      * 密码
      */
     private String password;
+    /**
+     * 创建时间
+     */
+    private Date createTime;
 
     public Integer getId() {
         return id;
@@ -29,6 +31,7 @@ public class User {
         this.id = id;
     }
 
+    @Column(name = "name")
     public String getName() {
         return name;
     }
@@ -37,11 +40,22 @@ public class User {
         this.name = name;
     }
 
+    @Column(name = "password")
     public String getPassword() {
         return password;
     }
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "create_time")
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 }
