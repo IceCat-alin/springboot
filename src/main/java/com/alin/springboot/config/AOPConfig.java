@@ -1,8 +1,11 @@
 package com.alin.springboot.config;
 
+import com.alibaba.fastjson.JSON;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.Arrays;
@@ -15,14 +18,20 @@ import java.util.Arrays;
 @Aspect
 @Configuration
 public class AOPConfig {
+
+    /**
+     * 日志
+     */
+    private static final Logger LOG = LoggerFactory.getLogger(AOPConfig.class);
+
     @Around("@within(org.springframework.stereotype.Controller) ")
     public Object functionAccessCheck(final ProceedingJoinPoint pjp) throws Throwable {
         Object[] args = pjp.getArgs();
-        System.out.println("args:" + Arrays.asList(args));
+        LOG.info("####传入参数：" + Arrays.asList(args));
 
         Object o = pjp.proceed();
 
-        System.out.println("return :" + o);
+        LOG.info("####返回参数 :" + JSON.toJSONString(o));
         return o;
 
     }

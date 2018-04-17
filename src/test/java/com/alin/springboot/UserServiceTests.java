@@ -23,7 +23,7 @@ public class UserServiceTests {
 
     @Test
     public void getUserPageTest() {
-        PageList<User> page = userService.getUserPage(0, 10);
+        PageList<User> page = userService.getUserPage(0, 10,"","","");
         System.out.println(JSON.toJSONString(page));
     }
 
