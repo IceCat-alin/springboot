@@ -2,11 +2,13 @@ package com.alin.springboot;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
-public class SpringboogApplication {
+@EnableScheduling
+public class SpringbootApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SpringboogApplication.class, args);
+		SpringApplication.run(SpringbootApplication.class, args);
 	}
 }
