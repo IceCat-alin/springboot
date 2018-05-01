@@ -35,6 +35,7 @@ public class NotExpression implements Criterion {
      * @return predicate
      * @description 构造查询条件
      */
+    @Override
     public Predicate toPredicate(Root<?> root, CriteriaQuery<?> query, CriteriaBuilder builder) {
         return criterion == null ? null : builder.not(criterion.toPredicate(root, query, builder));
     }

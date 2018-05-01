@@ -60,6 +60,7 @@ public class SimpleExpression implements Criterion {
      * @return predicate
      * @description 将查询添加联合起来
      */
+    @Override
     @SuppressWarnings({"rawtypes", "unchecked"})
     public Predicate toPredicate(Root<?> root, CriteriaQuery<?> query, CriteriaBuilder builder) {
         Path expression = null;

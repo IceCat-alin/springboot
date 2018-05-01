@@ -18,23 +18,31 @@ import java.util.Date;
 public class ScheduledTasks {
     private static final Logger LOG = LoggerFactory.getLogger(ScheduledTasks.class);
 
-    // 单位（毫秒）
-    public final static long ONE_Minute = 60 * 1000;
+    /**
+     * 单位（毫秒）
+     */
+    public final static long ONE_MINUTE = 60 * 1000;
 
-    // corn从左到右（用空格隔开）：秒 分 小时 月份中的日期 月份 星期中的日期 年份(可选)
+    /**
+     * corn从左到右（用空格隔开）：秒 分 小时 月份中的日期 月份 星期中的日期 年份(可选)
+     */
     @Scheduled(cron = "0 */1 * * * ?")
     public void reportCurrentTime() {
         LOG.info("任务1 {}", DateUtil.formatDatetimeToStr(new Date()));
     }
 
-    // 每隔一分钟
-    @Scheduled(fixedDelay = ONE_Minute)
+    /**
+     * 每隔一分钟
+     */
+    @Scheduled(fixedDelay = ONE_MINUTE)
     public void fixedDelayJob() {
         LOG.info("任务2 {}", DateUtil.formatDatetimeToStr(new Date()));
     }
 
-    // 该方法执行完一分钟后再执行
-    @Scheduled(fixedRate = ONE_Minute)
+    /**
+     * 该方法执行完一分钟后再执行
+     */
+    @Scheduled(fixedRate = ONE_MINUTE)
     public void fixedRateJob() {
         LOG.info("任务3 {}", DateUtil.formatDatetimeToStr(new Date()));
     }

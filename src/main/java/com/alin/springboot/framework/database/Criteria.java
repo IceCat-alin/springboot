@@ -31,6 +31,7 @@ public class Criteria<T> implements Specification<T> {
      * @return predicate
      * @description 将所有条件用 联合起来
      */
+    @Override
     public Predicate toPredicate(Root<T> root, CriteriaQuery<?> query, CriteriaBuilder builder) {
         if (!criterions.isEmpty()) {
             List<Predicate> predicates = new ArrayList<Predicate>();
