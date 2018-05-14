@@ -6,6 +6,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -79,7 +80,7 @@ public class DateUtil {
         if (date == null) {
             return "null";
         }
-        if (pattern == null || pattern.equals("") || pattern.equals("null")) {
+        if (StringUtils.isBlank(pattern)) {
             pattern = "yyyy-MM-dd HH:mm:ss";
         }
         return new SimpleDateFormat(pattern).format(date);
@@ -101,10 +102,10 @@ public class DateUtil {
      * @return format date
      */
     public static Date formatStrToDatePattern(String date, String pattern) {
-        if (pattern == null || pattern.equals("") || pattern.equals("null")) {
+        if (StringUtils.isBlank(pattern)) {
             pattern = "yyyy-MM-dd HH:mm:ss";
         }
-        if (date == null || date.equals("") || date.equals("null")) {
+        if (StringUtils.isBlank(date)) {
             return new Date();
         }
         Date d = null;

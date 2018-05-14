@@ -39,6 +39,7 @@ public class LogicalExpression implements Criterion {
      * @description 将查询添加联合起来
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
+    @Override
     public Predicate toPredicate(Root<?> root, CriteriaQuery<?> query, CriteriaBuilder builder) {
         switch (operator) {
             case OR:
