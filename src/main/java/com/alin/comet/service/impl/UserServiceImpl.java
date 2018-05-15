@@ -4,13 +4,13 @@ import com.alibaba.fastjson.JSON;
 import com.alin.comet.common.Constant;
 import com.alin.comet.common.PageList;
 import com.alin.comet.common.PageSort;
-import com.alin.comet.dao.UserRepository;
-import com.alin.comet.entity.User;
+import com.alin.comet.dao.UserInfoRepository;
+import com.alin.comet.entity.UserInfo;
 import com.alin.comet.framework.database.Criteria;
 import com.alin.comet.framework.database.Restrictions;
 import com.alin.comet.framework.exception.BusinessException;
 import com.alin.comet.framework.utils.DateUtil;
-import com.alin.comet.service.UserService;
+import com.alin.comet.service.UserInfoService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -23,11 +23,11 @@ import java.util.Map;
 import java.util.Optional;
 
 @Service("userService")
-@Transactional(rollbackFor = Exception.class )
-public class UserServiceImpl implements UserService {
+@Transactional(rollbackFor = Exception.class)
+public class UserServiceImpl implements UserInfoService {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserInfoRepository userRepository;
 
     /**
      * @param pageNo     页码
@@ -40,17 +40,17 @@ public class UserServiceImpl implements UserService {
      * @Date 2018/4/17 10:47
      **/
     @Override
-    public PageList<User> getUserPage(Integer pageNo, Integer pageSize, String sort, String sortField, String searchInfo) {
+    public PageList<UserInfo> getUserPage(Integer pageNo, Integer pageSize, String sort, String sortField, String searchInfo) {
         int currentPage = pageNo != null && pageNo > 0 ? pageNo - 1 : Constant.DEFAULT_PAGE;
         int currentSize = pageSize != null && pageSize > 0 ? pageSize : Constant.DEFAULT_SIZE;
         PageRequest pageable = PageRequest.of(currentPage, currentSize, PageSort.getSort(sort, sortField));
 
-        Criteria<User> criteria = new Criteria<>();
+        Criteria<UserInfo> criteria = new Criteria<>();
         if (StringUtils.isNotBlank(searchInfo)) {
             criteria = queryCondition(searchInfo);
         }
 
-        Page<User> page = userRepository.findAll(criteria, pageable);
+        Page<UserInfo> page = userRepository.findAll(criteria, pageable);
 
         return new PageList(page.getContent(), page.getTotalElements(), page.getTotalPages());
     }
@@ -61,16 +61,16 @@ public class UserServiceImpl implements UserService {
      * @Description 分页查询条件
      * @Date 2018/4/17 9:39
      **/
-    private Criteria<User> queryCondition(String searchInfo) {
-        Criteria<User> criteria = new Criteria<User>();
+    private Criteria<UserInfo> queryCondition(String searchInfo) {
+        Criteria<UserInfo> criteria = new Criteria<UserInfo>();
         Map searchMap = JSON.parseObject(searchInfo, Map.class);
-        if (searchMap.get("name")!=null&&StringUtils.isNotBlank(searchMap.get("name").toString())) {
+        if (searchMap.get("name") != null && StringUtils.isNotBlank(searchMap.get("name").toString())) {
             criteria.add(Restrictions.eq("name", searchMap.get("name"), true));
         }
-        if (searchMap.get("beginTime")!=null&&StringUtils.isNotBlank(searchMap.get("beginTime").toString())) {
+        if (searchMap.get("beginTime") != null && StringUtils.isNotBlank(searchMap.get("beginTime").toString())) {
             criteria.add(Restrictions.gte("createTime", DateUtil.formatStrToDateCommon(searchMap.get("beginTime").toString()), true));
         }
-        if (searchMap.get("endTime")!=null&&StringUtils.isNotBlank(searchMap.get("endTime").toString())) {
+        if (searchMap.get("endTime") != null && StringUtils.isNotBlank(searchMap.get("endTime").toString())) {
             criteria.add(Restrictions.lte("createTime", DateUtil.formatStrToDateCommon(searchMap.get("endTime").toString()), true));
         }
         return criteria;
@@ -84,8 +84,8 @@ public class UserServiceImpl implements UserService {
      * @Date 2018/4/17 9:42
      **/
     @Override
-    public User addUser(String name, String password) {
-        User user = new User();
+    public UserInfo addUser(String name, String password) {
+        UserInfo user = new UserInfo();
         user.setName(name);
         user.setPassword(password);
         user.setCreateTime(new Date());
@@ -103,8 +103,8 @@ public class UserServiceImpl implements UserService {
      * @Date 2018/4/17 9:57
      **/
     @Override
-    public User updateUser(Long id, String name, String password) throws BusinessException {
-        Optional<User> user = userRepository.findById(id);
+    public UserInfo updateUser(Long id, String name, String password) throws BusinessException {
+        Optional<UserInfo> user = userRepository.findById(id);
         if (!user.isPresent()) {
             throw new BusinessException("找不到id：" + id + "的用户");
         }
@@ -123,10 +123,15 @@ public class UserServiceImpl implements UserService {
      **/
     @Override
     public void deleteUser(Long id) throws BusinessException {
-        Optional<User> user = userRepository.findById(id);
+        Optional<UserInfo> user = userRepository.findById(id);
         if (!user.isPresent()) {
             throw new BusinessException("找不到id：" + id + "的用户");
         }
         userRepository.deleteById(id);
+    }
+
+    @Override
+    public UserInfo findByUsername(String username) {
+        return userRepository.findByUsername(username);
     }
 }

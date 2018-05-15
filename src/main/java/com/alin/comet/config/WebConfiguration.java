@@ -23,7 +23,7 @@ public class WebConfiguration {
     /**
      * 日志
      */
-    private static final Logger LOG = LoggerFactory.getLogger(AOPConfig.class);
+    private static final Logger LOG = LoggerFactory.getLogger(WebConfiguration.class);
 
     @Bean
     public RemoteIpFilter remoteIpFilter() {

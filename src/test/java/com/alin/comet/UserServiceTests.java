@@ -10,8 +10,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.alibaba.fastjson.JSON;
 import com.alin.comet.common.PageList;
-import com.alin.comet.entity.User;
-import com.alin.comet.service.UserService;
+import com.alin.comet.entity.UserInfo;
+import com.alin.comet.service.UserInfoService;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -19,11 +19,11 @@ import com.alin.comet.service.UserService;
 public class UserServiceTests {
 
     @Autowired
-    UserService userService;
+    UserInfoService userService;
 
     @Test
     public void getUserPageTest() {
-        PageList<User> page = userService.getUserPage(0, 10,"","","");
+        PageList<UserInfo> page = userService.getUserPage(0, 10,"","","");
         System.out.println(JSON.toJSONString(page));
     }
 
