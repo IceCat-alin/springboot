@@ -5,6 +5,8 @@ import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
@@ -15,9 +17,15 @@ import java.util.Properties;
 
 @Configuration
 public class ShiroConfig {
+
+	/**
+	 * 日志
+	 */
+	private static final Logger LOG = LoggerFactory.getLogger(ShiroConfig.class);
+
 	@Bean
 	public ShiroFilterFactoryBean shirFilter(SecurityManager securityManager) {
-		System.out.println("ShiroConfiguration.shirFilter()");
+		LOG.info("ShiroConfiguration.shirFilter()");
 		ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
 		shiroFilterFactoryBean.setSecurityManager(securityManager);
 		//拦截器.
@@ -32,10 +40,10 @@ public class ShiroConfig {
 		// 如果不设置默认会自动寻找Web工程根目录下的"/login.jsp"页面
 		shiroFilterFactoryBean.setLoginUrl("/login");
 		// 登录成功后要跳转的链接
-		shiroFilterFactoryBean.setSuccessUrl("/index");
+//		shiroFilterFactoryBean.setSuccessUrl("/index");
 
 		//未授权界面;
-		shiroFilterFactoryBean.setUnauthorizedUrl("/403");
+//		shiroFilterFactoryBean.setUnauthorizedUrl("/403");
 		shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
 		return shiroFilterFactoryBean;
 	}
