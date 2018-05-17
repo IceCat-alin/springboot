@@ -15,7 +15,7 @@ public class UserInfoController {
     @RequestMapping("/userList")
     @RequiresPermissions("userInfo:view")//权限管理;
     public String userInfo(){
-        return "userInfo";
+        return "userInfo1223";
     }
 
     /**
