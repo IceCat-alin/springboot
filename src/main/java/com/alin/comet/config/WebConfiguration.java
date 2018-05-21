@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 /**
- * @Description 类描述：
+ * @Description 类描述：过滤器
  * @Author 创建人：linying
  * @Date 创建时间：2018/5/14 15:40
  * @Version 版本号：v1.0.0
@@ -53,7 +53,7 @@ public class WebConfiguration {
                 throws IOException, ServletException {
             // TODO Auto-generated method stub
             HttpServletRequest request = (HttpServletRequest) servletRequest;
-            LOG.info("this is MyFilter,url :" + request.getRequestURI());
+            LOG.info("####请求url:" + request.getRequestURI());
             filterChain.doFilter(servletRequest, servletResponse);
         }
 

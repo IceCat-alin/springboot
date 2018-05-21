@@ -52,6 +52,10 @@ public class UserServiceImpl implements UserInfoService {
 
         Page<UserInfo> page = userRepository.findAll(criteria, pageable);
 
+        for (UserInfo userInfo : page.getContent()) {
+            userInfo.setRoleList(null);
+        }
+
         return new PageList(page.getContent(), page.getTotalElements(), page.getTotalPages());
     }
 

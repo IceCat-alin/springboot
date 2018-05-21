@@ -26,7 +26,7 @@ public class ScheduledTasks {
     /**
      * corn从左到右（用空格隔开）：秒 分 小时 月份中的日期 月份 星期中的日期 年份(可选)
      */
-    @Scheduled(cron = "0 */1 * * * ?")
+//    @Scheduled(cron = "0 */1 * * * ?")
     public void reportCurrentTime() {
         LOG.info("任务1 {}", DateUtil.formatDatetimeToStr(new Date()));
     }
@@ -34,7 +34,7 @@ public class ScheduledTasks {
     /**
      * 每隔一分钟
      */
-    @Scheduled(fixedDelay = ONE_MINUTE)
+//    @Scheduled(fixedDelay = ONE_MINUTE)
     public void fixedDelayJob() {
         LOG.info("任务2 {}", DateUtil.formatDatetimeToStr(new Date()));
     }
@@ -42,7 +42,7 @@ public class ScheduledTasks {
     /**
      * 该方法执行完一分钟后再执行
      */
-    @Scheduled(fixedRate = ONE_MINUTE)
+//    @Scheduled(fixedRate = ONE_MINUTE)
     public void fixedRateJob() {
         LOG.info("任务3 {}", DateUtil.formatDatetimeToStr(new Date()));
     }
