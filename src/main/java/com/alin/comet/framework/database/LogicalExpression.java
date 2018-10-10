@@ -27,7 +27,7 @@ public class LogicalExpression implements Criterion {
     private Operator operator;
 
     public LogicalExpression(Criterion[] criterions, Operator operator) {
-        this.criterion = criterions;
+        this.criterion = criterions.clone();
         this.operator = operator;
     }
 

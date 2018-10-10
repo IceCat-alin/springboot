@@ -42,7 +42,7 @@ public class WebConfiguration {
         return registration;
     }
 
-    public class MyFilter implements Filter {
+    public static class MyFilter implements Filter {
         @Override
         public void destroy() {
             // TODO Auto-generated method stub

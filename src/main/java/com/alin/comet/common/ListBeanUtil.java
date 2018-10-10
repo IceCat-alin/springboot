@@ -294,20 +294,21 @@ public final class ListBeanUtil {
             List<String> samePropertyArray = new ArrayList<>();
             samePropertyArray.addAll(map1.keySet());
             samePropertyArray.retainAll(map2.keySet());
-            StringBuffer buffer = new StringBuffer();
+            StringBuilder buffer = new StringBuilder();
             List<String> ignoreList = (ignoreProperties != null ? Arrays.asList(ignoreProperties) : null);
             for (String property : samePropertyArray) {
+                if (property == null) continue;
                 if ("class".equals(property)) {
                     continue;
                 }
-                if (ignoreList.contains(property)) {
+                if (ignoreList != null && ignoreList.contains(property)) {
                     continue;
                 }
                 Object value1 = map1.get(property);
                 Object value2 = map2.get(property);
                 if (value1 == null) {
                     if (value2 != null) {
-                        buffer.append(String.format("%s: %s ==> %s", property, value1, value2) + " || ");
+                        buffer.append(String.format("%s: %s ==> %s", property, null, value2)).append(" || ");
                     }
                     continue;
                 }
@@ -319,7 +320,7 @@ public final class ListBeanUtil {
                     value2 = value22.setScale(2, BigDecimal.ROUND_HALF_UP);
                 }
                 if (!value1.equals(value2)) {
-                    buffer.append(String.format("%s: %s ==> %s", property, value1, value2) + " || ");
+                    buffer.append(String.format("%s: %s ==> %s", property, value1, value2)).append(" || ");
                 }
             }
             return buffer.toString();
@@ -358,20 +359,20 @@ public final class ListBeanUtil {
             List<String> samePropertyArray = new ArrayList<>();
             samePropertyArray.addAll(map1.keySet());
             samePropertyArray.retainAll(map2.keySet());
-            StringBuffer buffer = new StringBuffer();
+            StringBuilder buffer = new StringBuilder();
             List<String> propertiesList = (properties != null ? Arrays.asList(properties) : null);
             for (String property : samePropertyArray) {
                 if ("class".equals(property)) {
                     continue;
                 }
-                if (!propertiesList.contains(property)) {
+                if (!(propertiesList != null && propertiesList.contains(property))) {
                     continue;
                 }
                 Object value1 = map1.get(property);
                 Object value2 = map2.get(property);
                 if (value1 == null) {
                     if (value2 != null) {
-                        buffer.append(String.format("%s: %s ==> %s", property, value1, value2) + " || ");
+                        buffer.append(String.format("%s: %s ==> %s", property, null, value2)).append(" || ");
                     }
                     continue;
                 }
@@ -383,7 +384,7 @@ public final class ListBeanUtil {
                     value2 = value22.setScale(2, BigDecimal.ROUND_HALF_UP);
                 }
                 if (!value1.equals(value2)) {
-                    buffer.append(String.format("%s: %s ==> %s", property, value1, value2) + " || ");
+                    buffer.append(String.format("%s: %s ==> %s", property, value1, value2)).append(" || ");
                 }
             }
             return buffer.toString();

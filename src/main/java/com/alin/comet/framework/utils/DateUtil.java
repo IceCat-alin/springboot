@@ -1,14 +1,14 @@
 package com.alin.comet.framework.utils;
 
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-
-import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * @author linying
@@ -269,8 +269,8 @@ public class DateUtil {
             return "";
         }
         String[] stringdate = currentDate.split("-");
-        int year = Integer.valueOf(stringdate[0]);
-        int month = Integer.valueOf(stringdate[1]) + 1;
+        int year = Integer.parseInt(stringdate[0]);
+        int month = Integer.parseInt(stringdate[1]) + 1;
         String monthString = month + "";
         if (month > 12) {
             year = year + 1;

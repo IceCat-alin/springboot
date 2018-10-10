@@ -13,6 +13,8 @@ import java.util.List;
  */
 @Entity
 public class UserInfo implements Serializable {
+
+    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long uid;
@@ -58,7 +60,7 @@ public class UserInfo implements Serializable {
      */
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "SysUserRole", joinColumns = {@JoinColumn(name = "uid")}, inverseJoinColumns = {@JoinColumn(name = "roleId")})
-    private List<SysRole> roleList;
+    transient private List<SysRole> roleList;
 
     public Long getUid() {
         return uid;
@@ -109,19 +111,19 @@ public class UserInfo implements Serializable {
     }
 
     public Date getCreateTime() {
-        return createTime;
+        return (Date) createTime.clone();
     }
 
     public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
+        this.createTime = (Date) createTime.clone();
     }
 
     public Date getUpdateTime() {
-        return updateTime;
+        return (Date) updateTime.clone();
     }
 
     public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
+        this.updateTime = (Date) updateTime.clone();
     }
 
     public List<SysRole> getRoleList() {
